@@ -19,12 +19,11 @@ def get_organizations_from_zendesk(query):
         print("Adding {}".format(org.name))
     
     for result in result_list:
+        # Adjust the timestamps so they make sense in the CSV (hard-coded nastiness)
         if result[1] is not None:
             result[1] = result[1][0:10]
-    
         if result[2] is not None:
             result[2] = result[2][0:10]
-    
     return result_list
 
 
@@ -54,13 +53,24 @@ if __name__ == '__main__':
     Type represents either a poc or orgs (all organizations). poc -- license_type:Trial -location:international -- We care about the trial license type that is not associated with an international account. orgs -- No query. This will pull everything from Zendesk and put it to a CSV for us.
     """
 
-    parser = argparse.ArgumentParser(description='Pull data about organizations via Zendesk and save data to a CSV.')
+    parser = argparse.ArgumentParser(
+        description='Pull data about organizations via Zendesk and save data to a CSV.'
+        )
     parser.add_argument('type', type=str, help=HELP_TYPE)
     args = parser.parse_args()
 
     csv_file = "poc.csv"
     all_orgs_csv_file = "orgs.csv"
-    header_row = ["Organization Name", "POC Start", "License Expiration", "License Limit", "Type", "Location", "Partner","Notes"] 
+    header_row = [
+        "Organization Name", 
+        "POC Start", 
+        "License Expiration", 
+        "License Limit", 
+        "Type", 
+        "Location", 
+        "Partner",
+        "Notes"
+    ] 
 
     if args.type == "poc":
         query = "license_type:Trial -location:international"
@@ -72,5 +82,6 @@ if __name__ == '__main__':
         result_list = get_organizations_from_zendesk(query) 
         print("Number of POCs: {}".format(len(result_list)))
         write_csv(all_orgs_csv_file, header_row, result_list)
+    elif args.type == "recent"
     else:
         print("You must choose poc or orgs.")
