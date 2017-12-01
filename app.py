@@ -5,7 +5,7 @@ Zenpy script -- outputs to CSV
 
 def get_organizations_from_zendesk(query):
     result_list = list()
-    for org in zenpy_client.search(query, type="organization", sort_by="created_at", sort_order="desc"):
+    for org in zenpy_client.search(query, type="organization", sort_order="desc"):
         result_list.append([
             org.name,
             org.organization_fields.poc_start,
@@ -27,6 +27,10 @@ def get_organizations_from_zendesk(query):
             result[1] = result[1][0:10]
         if result[2] is not None:
             result[2] = result[2][0:10]
+        if result[3] is not None:
+            result[3] = result[3][0:10]
+        if result[4] is not None:
+            result[4] = result[4][0:10]
     return result_list
 
 
