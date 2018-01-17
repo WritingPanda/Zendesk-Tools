@@ -5,3 +5,4 @@ env.ps1
 orgs.csv
 poc.csv
 poc_results_xls/
+.idea/

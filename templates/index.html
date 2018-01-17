@@ -1,7 +1,30 @@
 {% extends "base.html" %}
 
 {% block content %}
+<table class="table">
+  <tr>
+    <th>Name</th>
+    <th>POC Start</th>
+    <th>POC Expiration</th>
+    <th>License Start</th>
+    <th>License Expiration</th>
+    <th>License Limit</th>
+    <th>Type</th>
+    <th>Location</th>
+    <th>Partner</th>
+  </tr>
   {% for result in results %}
-    {{ result }}
+  <tr>
+    <td>{{ result.name }}</td>
+    <td>{{ result.poc_start }}</td>
+    <td>{{ result.poc_expiration_date }}</td>
+    <td>{{ result.license_start_date }}</td>
+    <td>{{ result.expiration }}</td>
+    <td>{{ result.license_limit }}</td>
+    <td>{{ result.type }}</td>
+    <td>{{ result.location }}</td>
+    <td>{{ result.partner }}</td>
+  </tr>
   {% endfor %}
+</table>
 {% endblock content %}
